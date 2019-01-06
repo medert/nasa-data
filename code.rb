@@ -183,9 +183,11 @@ nasa_data = [
 # 1. Create a method called company_name that takes in two arguments, an array and a company name.The method must return the entire hash for the given company.
 # Your code here
 def company_name(arr,name)
+  list = []
   arr.each do |obj|
-    puts obj[name]
+    list.push(obj[name])
   end
+  list
 end
 
 company_name(nasa_data, "Garmin International")
@@ -193,9 +195,11 @@ company_name(nasa_data, "Garmin International")
 # 2. Create a method called location that takes in an array and returns the city and state for every company.
 # Your code here
 def location(arr)
+  list = []
   arr[0].each do |key,value|
-    puts "#{value['location_1_city']}, #{value['location_1_state']}"
+    list << "#{value['location_1_city']}, #{value['location_1_state']}"
   end
+  list
 end
 
 location(nasa_data)
@@ -203,38 +207,67 @@ location(nasa_data)
 # 3. Create a method called id_number that takes in an array and returns each company name and its computed_region_cbhk_fwbd id number.
 # Your code here
 def id_number(arr)
+  list = []
   arr[0].each do |key,value|
-    puts "#{key}: #{value["computed_region_cbhk_fwbd"]}"
+    list.push("#{key}: #{value["computed_region_cbhk_fwbd"]}")
   end
+  return list
 end
 
 id_number(nasa_data)
 
-# # 4. Create a method called position that returns each company name and their listed position.
-# # Your code here
-#
-#
-# position(nasa_data)
-#
-# # 5. Create a method called type that takes in an array and returns each company name followed by their location_1 type.
-# # Your code here
-#
-#
-# type(nasa_data)
-#
-# # 6. Create a method called number that takes in an array and returns the name of the company that has the highest computed_region_nnqa_25f4 number.
-# # Your code here
-#
-#
-# number(nasa_data)
-#
-# # 7. Create a method called gmail that takes in an array and returns the amount of companies that have gmail.com as their email_hosts.
-# # Your code here
-#
-#
-# gmail(nasa_data)
-#
-# # 8. Create a method called no_domain that takes in an array and returns the number of companies that **do not** have a domain listed in nasa_data.
-#
-#
-# no_domain(nasa_data)
+# 4. Create a method called position that returns each company name and their listed position.
+# Your code here
+def position(arr)
+  list =[]
+  arr[0].each do |key,value|
+    list.push("#{key}: #{value["position"]}")
+  end
+  list
+end
+
+position(nasa_data)
+
+# 5. Create a method called type that takes in an array and returns each company name followed by their location_1 type.
+# Your code here
+def type(arr)
+  list =[]
+  arr[0].each do |key,value|
+    list.push("#{key}: #{value["location_1"]['type']}")
+  end
+  list
+end
+
+type(nasa_data)
+
+# 6. Create a method called number that takes in an array and returns the name of the company that has the highest computed_region_nnqa_25f4 number.
+# Your code here
+def number(arr)
+  obj = arr[0].max_by{|k,v| v["computed_region_nnqa_25f4"]}
+  obj[0]
+end
+
+number(nasa_data)
+
+# 7. Create a method called gmail that takes in an array and returns the amount of companies that have gmail.com as their email_hosts.
+# Your code here
+def gmail(arr)
+  sum = 0
+  arr[0].each do |k,v|
+    sum += 1 if v["email_hosts"].include?("gmail.com")
+  end
+  sum
+end
+
+puts gmail(nasa_data)
+
+# 8. Create a method called no_domain that takes in an array and returns the number of companies that **do not** have a domain listed in nasa_data.
+def no_domain(arr)
+  sum = 0
+  arr[0].each do |k,v|
+    sum += 1 if v["domain"].nil?
+  end
+  sum
+end
+
+puts no_domain(nasa_data)
